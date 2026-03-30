@@ -50,8 +50,8 @@ export default function RootLayout() {
   useEffect(() => {
     if (appState === "loading") return;
 
-    const inAuthGroup = (segments[0] as string) === "auth";
-    const inSetupGroup = (segments[0] as string) === "deviceSetup";
+    const inAuthGroup = segments[0] === "auth";
+    const inSetupGroup = segments[0] === "deviceSetup";
 
     if (appState === "unauthenticated" && !inAuthGroup) {
       router.replace("/auth");

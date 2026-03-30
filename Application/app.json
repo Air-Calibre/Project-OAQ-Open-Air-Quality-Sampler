@@ -22,7 +22,7 @@
         "android.permission.BLUETOOTH",
         "android.permission.BLUETOOTH_ADMIN",
         "android.permission.BLUETOOTH_CONNECT",
-	"android.permission.BLUETOOTH_SCAN"
+        "android.permission.BLUETOOTH_SCAN"
       ],
       "package": "com.abhid.App"
     },
@@ -49,6 +49,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "f1295489-6fa9-4c97-aedb-90e5339c52d9"
+      }
     }
   }
 }

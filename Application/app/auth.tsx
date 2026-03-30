@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-  ImageBackground,
+  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
+  SafeAreaView,
 } from "react-native";
 import {
   createUserWithEmailAndPassword,
@@ -22,8 +23,6 @@ import * as WebBrowser from "expo-web-browser";
 
 WebBrowser.maybeCompleteAuthSession();
 
-const background = require("../assets/images/background1.png");
-
 export default function AuthScreen() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
@@ -32,7 +31,7 @@ export default function AuthScreen() {
   const [loading, setLoading] = useState(false);
 
   const [_, response, promptAsync] = Google.useAuthRequest({
-    androidClientId: "YOUR_ANDROID_CLIENT_ID", // replace with yours from Google Cloud Console
+    androidClientId: "YOUR_ANDROID_CLIENT_ID",
   });
 
   const handleEmailAuth = async () => {
@@ -46,7 +45,22 @@ export default function AuthScreen() {
         await createUserWithEmailAndPassword(auth, email, password);
       }
     } catch (e: any) {
-      setError(e.message.replace("Firebase: ", "").replace(/ \(auth\/.*\)/, ""));
+      const code = e?.code ?? "";
+      if (code === "auth/invalid-credential" || code === "auth/wrong-password") {
+        setError("Incorrect email or password.");
+      } else if (code === "auth/user-not-found") {
+        setError("No account found with this email.");
+      } else if (code === "auth/email-already-in-use") {
+        setError("An account with this email already exists.");
+      } else if (code === "auth/weak-password") {
+        setError("Password must be at least 6 characters.");
+      } else if (code === "auth/network-request-failed") {
+        setError("Network error. Check your connection.");
+      } else if (code === "auth/operation-not-allowed") {
+        setError("Email/password login is not enabled in Firebase Console.");
+      } else {
+        setError(code || e?.message || "An unknown error occurred.");
+      }
     } finally {
       setLoading(false);
     }
@@ -60,23 +74,36 @@ export default function AuthScreen() {
       const credential = GoogleAuthProvider.credential(id_token);
       try {
         await signInWithCredential(auth, credential);
-      } catch (e: any) {
+      } catch {
         setError("Google sign-in failed. Please try again.");
       }
     }
   };
 
   return (
-    <ImageBackground source={background} style={styles.bg}>
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} style={styles.center}>
-        <View style={styles.card}>
-          <Text style={styles.title}>AirCalibre</Text>
-          <Text style={styles.subtitle}>{isLogin ? "Sign in to continue" : "Create an account"}</Text>
+    <SafeAreaView style={styles.safe}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.kav}
+      >
+        {/* Top: logo */}
+        <View style={styles.top}>
+          <Image
+            source={require("../assets/images/logo.png")}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+          <Text style={styles.subtitle}>
+            {isLogin ? "Sign in to continue" : "Create an account"}
+          </Text>
+        </View>
 
+        {/* Bottom: form */}
+        <View style={styles.form}>
           <TextInput
             style={styles.input}
             placeholder="Email"
-            placeholderTextColor="rgba(255,255,255,0.5)"
+            placeholderTextColor="rgba(255,255,255,0.25)"
             autoCapitalize="none"
             keyboardType="email-address"
             value={email}
@@ -85,7 +112,7 @@ export default function AuthScreen() {
           <TextInput
             style={styles.input}
             placeholder="Password"
-            placeholderTextColor="rgba(255,255,255,0.5)"
+            placeholderTextColor="rgba(255,255,255,0.25)"
             secureTextEntry
             value={password}
             onChangeText={setPassword}
@@ -93,8 +120,11 @@ export default function AuthScreen() {
 
           {error ? <Text style={styles.error}>{error}</Text> : null}
 
-          <TouchableOpacity style={styles.btn} onPress={handleEmailAuth} disabled={loading}>
-            {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.btnText}>{isLogin ? "Sign In" : "Register"}</Text>}
+          <TouchableOpacity style={styles.primaryBtn} onPress={handleEmailAuth} disabled={loading}>
+            {loading
+              ? <ActivityIndicator color="#fff" />
+              : <Text style={styles.primaryBtnText}>{isLogin ? "Sign in" : "Register"}</Text>
+            }
           </TouchableOpacity>
 
           <View style={styles.dividerRow}>
@@ -103,57 +133,84 @@ export default function AuthScreen() {
             <View style={styles.dividerLine} />
           </View>
 
-          <TouchableOpacity style={[styles.btn, styles.googleBtn]} onPress={handleGoogle}>
-            <Text style={styles.btnText}>Continue with Google</Text>
+          <TouchableOpacity style={styles.googleBtn} onPress={handleGoogle}>
+            <View style={styles.googleLogo}>
+              <Text style={{ color: "#4285F4", fontSize: 13, fontWeight: "700" }}>G</Text>
+            </View>
+            <Text style={styles.googleBtnText}>Continue with Google</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => { setIsLogin(!isLogin); setError(""); }}>
             <Text style={styles.toggle}>
-              {isLogin ? "Don't have an account? Register" : "Already have an account? Sign in"}
+              {isLogin ? "Don't have an account? " : "Already have an account? "}
+              <Text style={styles.toggleAccent}>{isLogin ? "Register" : "Sign in"}</Text>
             </Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
-    </ImageBackground>
+    </SafeAreaView>
   );
 }
 
+const BG = "#0a0f1e";
+const CARD = "rgba(255,255,255,0.05)";
+const BORDER = "rgba(255,255,255,0.1)";
+
 const styles = StyleSheet.create({
-  bg: { flex: 1 },
-  center: { flex: 1, justifyContent: "center", alignItems: "center" },
-  card: {
-    width: "85%",
-    backgroundColor: "rgba(0,0,0,0.45)",
-    borderRadius: 20,
-    padding: 28,
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.2)",
-  },
-  title: { fontSize: 32, fontWeight: "200", color: "white", textAlign: "center", marginBottom: 4 },
-  subtitle: { fontSize: 14, color: "rgba(255,255,255,0.6)", textAlign: "center", marginBottom: 24 },
-  input: {
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.3)",
-    borderRadius: 10,
-    padding: 12,
-    color: "white",
-    fontSize: 15,
-    marginBottom: 12,
-  },
-  error: { color: "#ff6b6b", fontSize: 13, marginBottom: 10, textAlign: "center" },
-  btn: {
-    backgroundColor: "rgba(255,255,255,0.2)",
-    borderRadius: 10,
-    padding: 14,
+  safe: { flex: 1, backgroundColor: BG },
+  kav: { flex: 1 },
+  top: {
+    flex: 1,
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.3)",
-    marginBottom: 12,
+    justifyContent: "center",
+    paddingHorizontal: 24,
   },
-  googleBtn: { backgroundColor: "rgba(66,133,244,0.3)", borderColor: "rgba(66,133,244,0.5)" },
-  btnText: { color: "white", fontSize: 15, fontWeight: "500" },
-  dividerRow: { flexDirection: "row", alignItems: "center", marginBottom: 12 },
-  dividerLine: { flex: 1, height: 1, backgroundColor: "rgba(255,255,255,0.2)" },
-  dividerText: { color: "rgba(255,255,255,0.4)", marginHorizontal: 10, fontSize: 13 },
-  toggle: { color: "rgba(255,255,255,0.6)", textAlign: "center", fontSize: 13, marginTop: 4 },
+  logo: { width: 260, height: 120, marginBottom: 12 },
+  subtitle: { fontSize: 14, color: "rgba(255,255,255,0.4)" },
+  form: {
+    paddingHorizontal: 24,
+    paddingBottom: 32,
+    gap: 10,
+  },
+  input: {
+    backgroundColor: CARD,
+    borderWidth: 0.5,
+    borderColor: BORDER,
+    borderRadius: 12,
+    padding: 14,
+    color: "#fff",
+    fontSize: 15,
+  },
+  error: { color: "#F09595", fontSize: 13, textAlign: "center" },
+  primaryBtn: {
+    backgroundColor: "#185FA5",
+    borderRadius: 12,
+    padding: 15,
+    alignItems: "center",
+  },
+  primaryBtnText: { color: "#fff", fontSize: 15, fontWeight: "500" },
+  dividerRow: { flexDirection: "row", alignItems: "center", gap: 10 },
+  dividerLine: { flex: 1, height: 0.5, backgroundColor: "rgba(255,255,255,0.1)" },
+  dividerText: { color: "rgba(255,255,255,0.3)", fontSize: 12 },
+  googleBtn: {
+    backgroundColor: CARD,
+    borderWidth: 0.5,
+    borderColor: BORDER,
+    borderRadius: 12,
+    padding: 14,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+  },
+  googleLogo: {
+    width: 20, height: 20,
+    borderRadius: 10,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  googleBtnText: { color: "rgba(255,255,255,0.8)", fontSize: 14, fontWeight: "500" },
+  toggle: { textAlign: "center", fontSize: 13, color: "rgba(255,255,255,0.35)", paddingTop: 2 },
+  toggleAccent: { color: "#85B7EB" },
 });
