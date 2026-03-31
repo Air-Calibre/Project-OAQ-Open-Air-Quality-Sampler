@@ -1,6 +1,6 @@
 * **This is Project OAQ an Open source Air Quality Sampler made for Everyone**
 
- <img width="1080" height="1080" alt="1 (22)" src="https://github.com/user-attachments/assets/e7cd33f5-f574-41b6-9e3c-5ea07c8e1566" /> 
+ <img width="540" height="540" alt="1 (22)" src="https://github.com/user-attachments/assets/e7cd33f5-f574-41b6-9e3c-5ea07c8e1566" /> 
  <img width="1080" height="1080" alt="1 (14)" src="https://github.com/user-attachments/assets/fed37364-3d43-4a97-990f-3e86e5e9a045" />
 
 
