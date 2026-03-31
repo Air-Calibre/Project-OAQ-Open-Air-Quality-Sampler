@@ -1,91 +1,84 @@
-# OAQ-Open-Air-Quality-Sampler-
+* **# Project OAQ (Open Air Quality Sampler)**
 
-## About
+* Air pollution kills ~7M people/year, most people don’t even know what they’re breathing
 
-* **Project OAQ** is an **open-source air quality monitoring sampler** designed to make pollution sensing affordable and accessible.
-* Air pollution causes **~7 million deaths every year**.
-* The people most affected by Air Pollution are often **unaware about the air quality around them**.
-* Of all the pollutants present in our current date environments, particulate matter is the most dangerous.
-* Particulate Matter (PM) is often called a **“silent killer”** because exposure usually happens without awareness and over long durations, resulting into incapability in taking precautionatory action.
+* current sensor density ≈ 0.02 / 100m vs recommended ≈ 1 / 100m → ~100x deficit
 
-## The Problem
+* idea: make AQI measurement cheap, portable, open, everywhere
 
-* Accurate pollution measurement requires **dense sensor coverage**.
-* According to **WHO recommendations**:
+---
 
-  * Minimum density of Air quality sensors should be: **1 sensor every 100 meters**
-* However, Current global deployment is at:
+* **What this is**
 
-  * ~**0.02 sensors per 100 meters**
-* This means we currently have roughly a **100× infrastructure deficit** for Air Quality monitoring.
+  * open source portable AQI sampler
+  * measures local air quality in real time
+  * built for **accessibility + hackability + actual usage**
+  * works offline, no cloud dependency
 
-## The Objectives of Project OAQ are :
+---
 
-* Increase **awareness of air pollution**.
-* Make **air quality monitoring hardware accessible to everyone**.
-* Encourage **community driven environmental sensing**.
-* When people understand **local pollution levels**,  **mitigation actions will follow**.
+* **Core Tech**
 
-Design principles:
+  * MCU-based compact PCB (52mm × 30mm)
+  * full **through-hole design (no SMD)**
+  * BLE for data transfer
+  * 18650 Li-ion powered (portable, rechargeable)
+  * modular sensor architecture
 
-* **Low cost**
+---
 
-  * Total hardware cost **under $25**
+* **Sensors (minimum AQI stack)**
 
-* **Simple assembly**
+  * Temperature + Humidity → DHT22
+  * Gas sensing → MQ-135 (CO₂/VOC proxy)
+  * Particulate Matter (user choice)
 
-  * **No SMD soldering**
-  * Beginner friendly build
+    * ZH03
+    * PMS5003 / PMS9003
+    * SPS30
+    * SDS011
+    * MPM14
+    * ZH06
 
-* **Easy sourcing**
+---
 
-  * Components available from common electronics stores
+* **AQI Logic**
 
-* **Portable**
+  * calculates sub-index per pollutant
+  * final AQI = **max(sub-indices)**
+  * uses breakpoint-based linear interpolation
+  * sensor fusion used for better context
 
-  * Powered by **18650 rechargeable battery**
+---
 
-* **Flexible enclosure**
+* **Features**
 
-  * Case can be **3D printed or customized for different use cases**
+  * under $25 build cost
+  * no SMD soldering → easy assembly
+  * works with multiple PM sensors
+  * real-time AQI + pollutant values
+  * buzzer-based alert system (pollution aware UX)
+  * BLE app (no internet required)
+  * local data logging (.txt)
+  * Home Assistant integration ready
+  * customizable 3D printed enclosure
+  * designed like a **power bank (low attention, EDC friendly)**
 
-* **Simple firmware**
+---
 
-  * Lightweight firmware
-  * Community improvements encouraged
+* **Firmware**
 
-* **Phone connectivity**
+  * simple, community-driven
+  * no OTA yet (planned)
+  * future: plug-and-play binary support
 
-  * Mobile app for:
-  * Viewing AQI data
-  * Logging environmental data
+---
 
-* **Sensor fusion actions**
+* **App**
 
-  * Trigger alerts or actions based on air quality conditions
+  * BLE-based communication
+  * shows AQI + all sensor values
+  * local logging
+  * fully offline
 
-* **Smart home integration**
-
-  * **Home Assistant support**
-  * Automatically control devices like:
-  * Air purifiers
-  * Ventilation systems
-  * Fans
-
-## Why This Matters
-
-* Pollution awareness is the **first step to solving the problem**.
-* More sensors → **better local data** → **better decisions**.
-* By lowering the barrier to building AQI monitors, **Project OAQ Sampler aims to democratize air pollution sensing**.
-
-## Project Vision
-
-* Open hardware
-* Open firmware
-* Community improvements
-* Dense local air quality sensing networks
-
-
-
-
-
+---
