@@ -69,9 +69,6 @@
   * sensor fusion used for better context
 
 ---
-<img width="270" height="270" alt="1 (6)" src="https://github.com/user-attachments/assets/aac6d53a-80e3-45f7-8e9b-1d698bf6d31c" />
-<img width="270" height="270" alt="1 (20)" src="https://github.com/user-attachments/assets/f6c0d178-e630-493c-a61a-c83ba9701a86" />
-<img width="270" height="270" alt="1 (37)" src="https://github.com/user-attachments/assets/8dbb29c1-0578-4937-9a85-4d289cd6bd7b" />
 
 
 * **Features**
@@ -89,26 +86,25 @@
   * Home Assistant integration ready
   * customizable 3D printed enclosure
   * designed like a **power bank (low attention, EDC friendly)**
-
+<img width="270" height="270" alt="1 (6)" src="https://github.com/user-attachments/assets/aac6d53a-80e3-45f7-8e9b-1d698bf6d31c" />
+<img width="270" height="270" alt="1 (20)" src="https://github.com/user-attachments/assets/f6c0d178-e630-493c-a61a-c83ba9701a86" />
+<img width="270" height="270" alt="1 (37)" src="https://github.com/user-attachments/assets/8dbb29c1-0578-4937-9a85-4d289cd6bd7b" /> 
 ---
-<img width="270" height="270" alt="1 (4)" src="https://github.com/user-attachments/assets/51c5ed93-8d08-4bde-8553-4f9dc1cee8ae" />
-<img width="270" height="270" alt="1 (5)" src="https://github.com/user-attachments/assets/647abab7-d60e-4891-b6d5-917cbda8f564" />
 
 * **Firmware**
 
   * simple, community-driven
   * no OTA yet (planned)
   * future: plug-and-play binary support
-
+<img width="270" height="270" alt="1 (4)" src="https://github.com/user-attachments/assets/51c5ed93-8d08-4bde-8553-4f9dc1cee8ae" />
+<img width="270" height="270" alt="1 (5)" src="https://github.com/user-attachments/assets/647abab7-d60e-4891-b6d5-917cbda8f564" />
 ---
  
 * **App**
-<img width="1080" height="1080" alt="Components" src="https://github.com/user-attachments/assets/b1ba8cf3-8a2c-4b2b-bdf0-3042b6df3910" />
-
 
   * BLE-based communication
   * shows AQI + all sensor values
   * local logging
   * fully offline
-
+<img width="270" height="270" alt="Components" src="https://github.com/user-attachments/assets/b1ba8cf3-8a2c-4b2b-bdf0-3042b6df3910" />
 ---
