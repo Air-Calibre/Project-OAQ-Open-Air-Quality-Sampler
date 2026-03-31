@@ -28,7 +28,8 @@
 ---
 
 * **Core Tech**
-<img width="270" height="270" alt="1 (4)" src="https://github.com/user-attachments/assets/c3cfac50-8f5a-407d-ba04-09b656cd9614" /> <img width="1080" height="1080" alt="1 (36)" src="https://github.com/user-attachments/assets/1f9e93d0-9689-4fb0-9254-1bcc51ef5643" />
+<img width="270" height="270" alt="1 (4)" src="https://github.com/user-attachments/assets/c3cfac50-8f5a-407d-ba04-09b656cd9614" />
+<img width="270" height="270" alt="1 (36)" src="https://github.com/user-attachments/assets/1f9e93d0-9689-4fb0-9254-1bcc51ef5643" />
 
 
   * MCU-based compact PCB (52mm × 30mm)
