@@ -17,12 +17,12 @@
 ---
 
 ## The Problem
-Air pollution claims approximately 7 million lives every year. Everyone breathing the atmosphere of this planet is affected by it. Yet, the biggest barrier to combating air pollution is a simple lack of localized awareness about its constituents. 
+Air pollution claims approximately 8 million lives every year. Everyone breathing the atmosphere of this planet is affected by it. Yet, the biggest barrier to combating air pollution is a simple lack of localized awareness about its constituents. 
 
 **We want to change that.**
 
 ## The Solution: Project OAQ
-Project OAQ is a fully open-source, portable, and battery-powered air pollution monitor. It provides real-time AQI values and the exact concentrations of the most influential airborne pollutants. Built for accessibility, hackability, and actual daily usage.
+Project OAQ is a fully open-source, portable, and battery-powered air pollution monitor. It provides real-time AQI values and the exact concentrations of the most influential airborne pollutants. Built for accessibility and actual daily usage.
 
 <div align="center">
   <img width="270" height="270" src="https://github.com/user-attachments/assets/fed37364-3d43-4a97-990f-3e86e5e9a045" />
@@ -35,8 +35,8 @@ Project OAQ is a fully open-source, portable, and battery-powered air pollution 
 ## Key Features
 
 - **Ultra-Affordable:** Build it yourself for under $25.
-- **Zero SMD Soldering:** 100% Through-hole PCB design makes it the perfect weekend project for beginners and schools.
-- **Everyday Carry (EDC):** Designed to look and feel like a standard power bank. Low attention, highly portable, powered by a standard rechargeable 18650 Li-ion battery.
+- **Zero SMD Soldering:** 100% Through-hole PCB design makes it the perfect weekend project for beginners.
+- **Everyday Carry (EDC):** Designed to look Discrete. It draws less attention, highly portable, powered by a standard rechargeable 18650 Li-ion battery.
 - **Privacy First (100% Offline):** No cloud dependency. Connects via Bluetooth Low Energy (BLE) to a local app.
 - **Pollution-Aware UX:** Features a built-in buzzer alert system to notify you when air quality reaches dangerous levels.
 - **Smart Home Ready:** Easily integrates with Home Assistant for home automation based on air quality triggers.
