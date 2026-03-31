@@ -65,7 +65,6 @@ Our hardware is built around a custom, compact MCU-based PCB measuring just 52mm
 
 ## How We Calculate AQI
 
-Project OAQ doesn't just guess; it relies on solid math and sensor fusion:
 1. Calculates a sub-index for each detected pollutant.
 2. Uses breakpoint-based linear interpolation to standardize values.
 3. Applies sensor fusion for enriched context.
